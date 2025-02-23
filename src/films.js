@@ -31,14 +31,28 @@ moviesAverageOfDirector(movies,"Frank Darabont" )
 console.log(moviesAverageOfDirector(movies,"Frank Darabont" ));
 
 // Exercise 4:  Alphabetic order by title 
-function orderAlphabetically(array) {
+function orderAlphabetically(movies) {
+  let sortedTitle= movies.map(movie=>movie.title)
+  // console.log(sortedTitle);
   
+  return sortedTitle.sort().slice(0, 20)
 }
-
+orderAlphabetically(movies)
 // Exercise 5: Order by year, ascending
-function orderByYear() {
-
+function orderByYear(movies) {
+ let arrYear= movies.map(movie=>movie)
+ arrYear.sort((a, b)=>{
+  if(a.year!==b.year){
+    return a.year-b.year
+  }
+  if (a.title < b.title) return -1; 
+  if (a.title > b.title) return 1;
+  return 0;
+ })
+ return arrYear
 }
+// console.log(orderByYear());
+orderByYear(movies)
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory() {
