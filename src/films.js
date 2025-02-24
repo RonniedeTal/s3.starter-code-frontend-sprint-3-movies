@@ -16,9 +16,6 @@ function getMoviesFromDirector(movies, director) {
  return movies.filter(movie=>movie.director==director)
 }
 getMoviesFromDirector(movies,"Frank Darabont")
-//console.log(getMoviesFromDirector(movies,"Frank Darabont"));
-
-
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(movies, director) {
@@ -28,7 +25,7 @@ function moviesAverageOfDirector(movies, director) {
   return average
 }
 moviesAverageOfDirector(movies,"Frank Darabont" )
-console.log(moviesAverageOfDirector(movies,"Frank Darabont" ));
+// console.log(moviesAverageOfDirector(movies,"Frank Darabont" ));
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(movies) {
@@ -51,24 +48,102 @@ function orderByYear(movies) {
  })
  return arrYear
 }
-// console.log(orderByYear());
 orderByYear(movies)
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
-
+function moviesAverageByCategory(movies, genre) {
+let averageByGenre;
+let genreFiltered = movies.filter(movie=>movie.genre==genre).map(movie=>movie.score)
+averageByGenre=genreFiltered.reduce((acc, actualGen)=>(Math.round(acc+actualGen)))
+let media=Number((averageByGenre/genreFiltered.length).toFixed(2))
+return media
 }
+moviesAverageByCategory(movies, 'Drama')
+
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
 
+function hoursToMinutes(movies) {
+  let arr=[]
+  let movieMapped=movies.map((eachMovie)=>{
+  let splited=eachMovie.duration.split("")
+  splited.splice(splited.indexOf("h"))
+  let hour=Number(splited)*60
+  let splitedMin=eachMovie.duration.split("")
+   splitedMin.splice(splitedMin.indexOf("m")), splitedMin.splice(0,3)
+    
+    let min=Number(splitedMin.join(""))
+    let totalMinutes=hour+min
+    // console.log(totalMinutes);
+    return {
+      ...eachMovie,
+      duration:totalMinutes
+    }
+
+  })
+
+  arr.push(...movieMapped)
+  return arr
 }
+hoursToMinutes(movies)
 
-// Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
+
+
+
+
+
+// function hoursToMinutes(movies) {
+// let hoursMinutes;
+// let horas;
+// let minutos;
+// let minutosANumeros;
+// let splicedObject;
+// let subSplicedObject;
+// let moviesMapped=movies.map((eachMovie)=>{
+//   // console.log(eachMovie.duration.split(""));
+//   let deletedSpace=eachMovie.duration.split("")
+//   splicedObject=deletedSpace.splice(deletedSpace.indexOf("h"))
+//   // console.log(deletedSpace);
   
-}
+//   subSplicedObject=splicedObject.splice(splicedObject.indexOf("m")-2, 2)
+//   minutos=subSplicedObject.join("")
+//   if(minutos.includes("h")){
+//     return "h"==0
+//   }
+//   minutosANumeros=Number(minutos)
+//   horas=Number(deletedSpace)*60
+//   // console.log(horas);
+//   hoursMinutes=horas+minutosANumeros
+//   console.log(hoursMinutes);
+//   // eachMovie.duration
+//   // console.log(splicedObject);
+ 
+//   return eachMovie.duration=hoursMinutes
+  
+  
+// })
 
+
+// // let splitContent= moviesMapped.split(" ")
+// // console.log(splitContent);
+
+// console.log(moviesMapped);
+// }
+
+// hoursToMinutes(movies)
+// Exercise 8: Get the best film of a year
+bestFilmOfYear(movies, 1995)
+function bestFilmOfYear(movies, year) {
+  let bestMovie=[]
+  let filteredMovies=movies.filter(movie=>movie.year==year).reduce((prev, actual)=>{
+    return actual.score>prev.score?actual:prev
+  })
+ 
+    bestMovie.push(filteredMovies)
+  
+  return bestMovie
+}
+bestFilmOfYear(movies, 1995)
 
 
 // The following is required to make unit tests work.
